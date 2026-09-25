@@ -1,19 +1,7 @@
-import { ExternalLink, Globe } from 'lucide-react';
-import { FaInstagram, FaGithub, FaLinkedin, FaTwitter, FaYoutube, FaTiktok } from 'react-icons/fa';
-import { LinkItem, IconName } from '@/data/links';
-import { ComponentType } from 'react';
-
-type IconProps = { size?: number; className?: string };
-
-const iconMap: Record<IconName, ComponentType<IconProps>> = {
-  instagram: FaInstagram as ComponentType<IconProps>,
-  globe: Globe,
-  github: FaGithub as ComponentType<IconProps>,
-  linkedin: FaLinkedin as ComponentType<IconProps>,
-  twitter: FaTwitter as ComponentType<IconProps>,
-  youtube: FaYoutube as ComponentType<IconProps>,
-  tiktok: FaTiktok as ComponentType<IconProps>,
-};
+// src/components/LinkCard.tsx
+import { ExternalLink } from 'lucide-react';
+import { LinkItem } from '@/types/linktree';
+import { getIconComponent } from '@/lib/icons';
 
 interface Props {
   link: LinkItem;
@@ -21,7 +9,7 @@ interface Props {
 }
 
 export function LinkCard({ link, index }: Props) {
-  const Icon = iconMap[link.icon] ?? ExternalLink;
+  const Icon = getIconComponent(link.icon);
 
   return (
     <a
@@ -48,11 +36,9 @@ export function LinkCard({ link, index }: Props) {
       >
         <Icon size={18} className="text-white" />
       </div>
-
       <span className="flex-1 text-sm font-medium text-slate-200 group-hover:text-white transition-colors">
         {link.label}
       </span>
-
       <ExternalLink
         size={14}
         className="text-slate-500 group-hover:text-slate-300 transition-colors flex-shrink-0"

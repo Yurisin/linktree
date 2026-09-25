@@ -1,20 +1,7 @@
-export type IconName =
-  | 'instagram'
-  | 'globe'
-  | 'github'
-  | 'linkedin'
-  | 'twitter'
-  | 'youtube'
-  | 'tiktok';
+// Re-export from shared types so consumers get a single source of truth
+export type { LinkItem, IconName } from '@/types/linktree';
 
-export interface LinkItem {
-  id: string;
-  label: string;
-  url: string;
-  icon: IconName;
-  enabled: boolean;
-  featured?: boolean;
-}
+import { LinkItem } from '@/types/linktree';
 
 export const links: LinkItem[] = [
   {
@@ -24,6 +11,7 @@ export const links: LinkItem[] = [
     icon: 'instagram',
     enabled: true,
     featured: true,
+    position: 0,
   },
   {
     id: 'website',
@@ -31,6 +19,8 @@ export const links: LinkItem[] = [
     url: 'https://dev.alemaoflow.com',
     icon: 'globe',
     enabled: true,
+    featured: false,
+    position: 1,
   },
   {
     id: 'github-corp',
@@ -38,6 +28,8 @@ export const links: LinkItem[] = [
     url: 'https://github.com/YuriCNZ',
     icon: 'github',
     enabled: true,
+    featured: false,
+    position: 2,
   },
   {
     id: 'github-personal',
@@ -45,6 +37,8 @@ export const links: LinkItem[] = [
     url: 'https://github.com/Yurisin',
     icon: 'github',
     enabled: true,
+    featured: false,
+    position: 3,
   },
   {
     id: 'linkedin',
@@ -52,5 +46,7 @@ export const links: LinkItem[] = [
     url: 'https://linkedin.com/in/yuribotelho',
     icon: 'linkedin',
     enabled: false,
+    featured: false,
+    position: 4,
   },
 ];
