@@ -1,0 +1,55 @@
+import Image from 'next/image';
+import { ProfileConfig } from '@/data/profile';
+
+interface Props {
+  profile: ProfileConfig;
+}
+
+export function ProfileHeader({ profile }: Props) {
+  return (
+    <div className="flex flex-col items-center gap-4 mb-10">
+      {/* Avatar with glow */}
+      <div className="relative">
+        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 blur-xl opacity-40 scale-110" />
+        {profile.avatarUrl ? (
+          <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-white/10">
+            <Image
+              src={profile.avatarUrl}
+              alt={profile.name}
+              fill
+              className="object-cover"
+              onError={(e) => {
+                const target = e.currentTarget as HTMLImageElement;
+                target.style.display = 'none';
+                const fallback = target.parentElement?.querySelector('[data-fallback]') as HTMLElement;
+                if (fallback) fallback.style.display = 'flex';
+              }}
+            />
+            <div
+              data-fallback
+              className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 items-center justify-center hidden"
+            >
+              <span className="text-white text-xl font-semibold">{profile.avatarInitials}</span>
+            </div>
+          </div>
+        ) : (
+          <div className="relative w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center border-2 border-white/10">
+            <span className="text-white text-xl font-semibold">{profile.avatarInitials}</span>
+          </div>
+        )}
+      </div>
+
+      {/* Name */}
+      <h1 className="text-2xl font-semibold text-white tracking-tight">
+        {profile.name}
+      </h1>
+
+      {/* Bio */}
+      {profile.bio && (
+        <p className="text-sm text-slate-400 text-center max-w-xs leading-relaxed">
+          {profile.bio}
+        </p>
+      )}
+    </div>
+  );
+}
