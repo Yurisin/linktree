@@ -6,10 +6,7 @@ export const GET = auth(async (req) => {
   if (!req.auth) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const supabase = createDbClient();
   const { data, error } = await supabase.from('links').select('*').order('position');
-  if (error) {
-    console.error('[api/admin/links GET]', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json(data);
 });
 
