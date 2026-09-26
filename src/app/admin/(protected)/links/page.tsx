@@ -14,7 +14,8 @@ export default function LinksAdminPage() {
 
   const fetchLinks = useCallback(async () => {
     const res = await fetch('/api/admin/links');
-    if (res.ok) setLinks(await res.json());
+    if (!res.ok) { setError('Erro ao carregar links'); setLoading(false); return; }
+    setLinks(await res.json());
     setLoading(false);
   }, []);
 
@@ -57,12 +58,14 @@ export default function LinksAdminPage() {
   }
 
   async function handleReorder(newLinks: LinkItem[]) {
+    const previous = links;
     setLinks(newLinks); // optimistic
-    await fetch('/api/admin/links', {
+    const res = await fetch('/api/admin/links', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newLinks.map((l, i) => ({ id: l.id, position: i }))),
     });
+    if (!res.ok) setLinks(previous); // rollback on failure
   }
 
   if (loading) return <p className="text-slate-400">Carregando...</p>;
