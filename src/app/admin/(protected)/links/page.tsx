@@ -45,6 +45,7 @@ export default function LinksAdminPage() {
     if (!confirm('Excluir este link?')) return;
     const res = await fetch(`/api/admin/links/${id}`, { method: 'DELETE' });
     if (res.ok) setLinks((prev) => prev.filter((l) => l.id !== id));
+    else setError('Erro ao excluir link');
   }
 
   async function handleToggle(id: string, enabled: boolean) {
