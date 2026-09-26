@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { ProfileData } from '@/types/linktree';
 import { Upload } from 'lucide-react';
+import { AvatarCropModal } from './AvatarCropModal';
 
 interface Props {
   profile: ProfileData;
@@ -15,29 +16,44 @@ export function ProfileEditor({ profile, onSave }: Props) {
   const [bio, setBio] = useState(profile.bio);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(profile.avatar_url);
   const [preview, setPreview] = useState<string | null>(null);
+  const [cropSrc, setCropSrc] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    setPreview(URL.createObjectURL(file));
+    // Reset input so same file can be re-selected after cancel
+    e.target.value = '';
+    const objectUrl = URL.createObjectURL(file);
+    setCropSrc(objectUrl);
+  }
+
+  async function handleCropConfirm(blob: Blob) {
+    setCropSrc(null);
+    const localPreview = URL.createObjectURL(blob);
+    setPreview(localPreview);
     setUploading(true);
     setError(null);
     try {
       const fd = new FormData();
-      fd.append('file', file);
+      fd.append('file', blob, 'avatar.jpg');
       const res = await fetch('/api/admin/upload', { method: 'POST', body: fd });
       if (!res.ok) throw new Error(await res.text());
       const { url } = await res.json();
       setAvatarUrl(url);
     } catch (err) {
+      setPreview(null);
       setError(err instanceof Error ? err.message : 'Upload failed');
     } finally {
       setUploading(false);
     }
+  }
+
+  function handleCropCancel() {
+    setCropSrc(null);
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -56,6 +72,14 @@ export function ProfileEditor({ profile, onSave }: Props) {
   const displayImage = preview ?? avatarUrl;
 
   return (
+    <>
+      {cropSrc && (
+        <AvatarCropModal
+          imageSrc={cropSrc}
+          onConfirm={handleCropConfirm}
+          onCancel={handleCropCancel}
+        />
+      )}
     <form onSubmit={handleSubmit} className="space-y-6 max-w-md">
       {error && <p className="text-red-400 text-sm">{error}</p>}
       <div className="flex items-center gap-6">
@@ -98,5 +122,6 @@ export function ProfileEditor({ profile, onSave }: Props) {
         {saving ? 'Salvando...' : 'Salvar Perfil'}
       </button>
     </form>
+    </>
   );
 }
