@@ -1,13 +1,18 @@
-export interface ProfileConfig {
-  name: string;
-  bio: string;
-  avatarUrl?: string;
-  avatarInitials: string;
-}
+// Re-export from shared types so consumers get a single source of truth
+export type { ProfileData as ProfileConfig } from '@/types/linktree';
 
-export const profile: ProfileConfig = {
+import { ProfileData } from '@/types/linktree';
+
+export const profile: ProfileData = {
+  id: 1,
   name: 'Yuri | Alemão Dev',
   bio: 'Dev & Creator · Alemão Flow',
-  avatarInitials: 'YB',
-  avatarUrl: '/avatar.jpg',
+  avatar_url: '/avatar.jpg',
+  theme: {
+    bgColor: '#0a0a0a',
+    accentColor: '#6366f1',
+    cardColor: 'rgba(255,255,255,0.06)',
+    textColor: '#ffffff',
+  },
+  updated_at: new Date().toISOString(),
 };
