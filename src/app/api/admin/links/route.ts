@@ -32,8 +32,10 @@ export const PUT = auth(async (req) => {
   if (!req.auth) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const body = await req.json() as Array<{ id: string; position: number }>;
   const supabase = createDbClient();
-  await Promise.all(
+  const results = await Promise.all(
     body.map(({ id, position }) => supabase.from('links').update({ position }).eq('id', id))
   );
+  const failed = results.find((r) => r.error);
+  if (failed?.error) return NextResponse.json({ error: failed.error.message }, { status: 500 });
   return NextResponse.json({ ok: true });
 });
