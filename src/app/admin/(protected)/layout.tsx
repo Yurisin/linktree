@@ -13,6 +13,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <nav className="border-b border-white/10 bg-white/[0.02] sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
           <div className="flex items-center gap-1">
+            <Link href="/admin/analytics"
+              className="px-3 py-1.5 rounded-lg text-sm hover:bg-white/10 transition-colors text-slate-300 hover:text-white">
+              Analytics
+            </Link>
             <Link href="/admin/links"
               className="px-3 py-1.5 rounded-lg text-sm hover:bg-white/10 transition-colors text-slate-300 hover:text-white">
               Links
