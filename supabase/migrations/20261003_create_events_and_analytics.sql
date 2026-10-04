@@ -102,3 +102,12 @@ language sql security definer set search_path = linktree as $$
 $$;
 
 grant execute on all functions in schema linktree to service_role;
+
+-- Harden: Postgres grants EXECUTE on new functions to PUBLIC by default.
+-- These are SECURITY DEFINER, so restrict them to service_role only.
+revoke execute on all functions in schema linktree from public, anon, authenticated;
+
+-- Defense in depth: strip any default table privileges and enable RLS.
+-- (service_role bypasses RLS; the app accesses events only via the service key.)
+revoke all on linktree.events from anon, authenticated;
+alter table linktree.events enable row level security;
