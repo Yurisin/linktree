@@ -18,15 +18,71 @@ export async function getAnalytics(range: AnalyticsRange): Promise<AnalyticsData
     supabase.from('links').select('id,label'),
   ]);
 
+  // Log RPC errors
+  const rpcResults = [
+    ['analytics_summary', summary],
+    ['analytics_timeseries', timeseries],
+    ['analytics_top_links', topLinks],
+    ['analytics_sources', sources],
+    ['analytics_devices', devices],
+    ['analytics_countries', countries],
+    ['analytics_activity', activity],
+  ] as const;
+  rpcResults.forEach(([name, result]) => {
+    if (result.error) console.error('analytics rpc failed:', name, result.error.message);
+  });
+
+  // Coerce bigint fields to Number
+  const summaryData = summary.data?.[0] as AnalyticsData['summary'];
+  const coercedSummary = summaryData ? {
+    pageviews: Number(summaryData.pageviews),
+    uniques: Number(summaryData.uniques),
+    clicks: Number(summaryData.clicks),
+  } : { pageviews: 0, uniques: 0, clicks: 0 };
+
+  const coercedTimeseries = (timeseries.data ?? []).map((row: any) => ({
+    ...row,
+    pageviews: Number(row.pageviews),
+    clicks: Number(row.clicks),
+  }));
+
+  const coercedTopLinks = (topLinks.data ?? []).map((row: any) => ({
+    ...row,
+    clicks: Number(row.clicks),
+    uniques: Number(row.uniques),
+  }));
+
+  const coercedSources = (sources.data ?? []).map((row: any) => ({
+    ...row,
+    pageviews: Number(row.pageviews),
+  }));
+
+  const coercedDevices = (devices.data ?? []).map((row: any) => ({
+    ...row,
+    count: Number(row.count),
+  }));
+
+  const coercedCountries = (countries.data ?? []).map((row: any) => ({
+    ...row,
+    count: Number(row.count),
+  }));
+
+  const coercedActivity = (activity.data ?? []).map((row: any) => ({
+    ...row,
+    dow: Number(row.dow),
+    hour: Number(row.hour),
+    count: Number(row.count),
+  }));
+
   return {
     range,
-    summary: (summary.data?.[0] as AnalyticsData['summary']) ?? { pageviews: 0, uniques: 0, clicks: 0 },
-    timeseries: timeseries.data ?? [],
-    topLinks: topLinks.data ?? [],
-    sources: sources.data ?? [],
-    devices: devices.data ?? [],
-    countries: countries.data ?? [],
-    activity: activity.data ?? [],
+    summary: coercedSummary,
+    timeseries: coercedTimeseries,
+    topLinks: coercedTopLinks,
+    sources: coercedSources,
+    devices: coercedDevices,
+    countries: coercedCountries,
+    activity: coercedActivity,
     links: links.data ?? [],
   };
 }
