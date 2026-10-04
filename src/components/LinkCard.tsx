@@ -13,7 +13,7 @@ export function LinkCard({ link, index }: Props) {
 
   return (
     <a
-      href={link.url}
+      href={`/go/${link.id}`}
       target="_blank"
       rel="noopener noreferrer"
       className="group flex items-center gap-4 w-full px-5 py-4 rounded-xl
