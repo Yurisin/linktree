@@ -1,4 +1,5 @@
 import { LinktreePage } from '@/components/LinktreePage';
+import { Tracker } from '@/components/Tracker';
 import { createDbClient } from '@/lib/supabase-server';
 import { ProfileData, LinkItem, ThemeConfig } from '@/types/linktree';
 
@@ -26,5 +27,10 @@ export default async function Home() {
   const links = (linksData ?? []) as LinkItem[];
   const theme: ThemeConfig = profile.theme ?? DEFAULT_THEME;
 
-  return <LinktreePage profile={profile} links={links} theme={theme} />;
+  return (
+    <>
+      <Tracker />
+      <LinktreePage profile={profile} links={links} theme={theme} />
+    </>
+  );
 }
