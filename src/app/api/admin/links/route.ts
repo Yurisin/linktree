@@ -21,6 +21,7 @@ export const POST = auth(async (req) => {
     .from('links')
     .insert({ label: body.label, url: body.url, icon: body.icon ?? 'globe',
                enabled: body.enabled ?? true, featured: body.featured ?? false,
+               social: body.social ?? false,
                position: maxPosition + 1 })
     .select().single();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });

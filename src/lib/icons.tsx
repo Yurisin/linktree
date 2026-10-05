@@ -1,6 +1,9 @@
 // src/lib/icons.tsx
 import { ComponentType } from 'react';
-import { ExternalLink, Globe, Mail, Link } from 'lucide-react';
+import {
+  ExternalLink, Globe, Mail, Link,
+  FileText, Newspaper, Folder, ShoppingBag, ClipboardList,
+} from 'lucide-react';
 import {
   FaInstagram, FaGithub, FaLinkedin, FaTwitter,
   FaYoutube, FaTiktok, FaWhatsapp, FaTelegram, FaDiscord,
@@ -22,6 +25,11 @@ const iconMap: Record<IconName, ComponentType<IconProps>> = {
   discord:   FaDiscord as ComponentType<IconProps>,
   email:     Mail,
   link:      Link,
+  document:  FileText,
+  blog:      Newspaper,
+  folder:    Folder,
+  store:     ShoppingBag,
+  clipboard: ClipboardList,
 };
 
 export const ICON_LABELS: Record<IconName, string> = {
@@ -29,6 +37,8 @@ export const ICON_LABELS: Record<IconName, string> = {
   linkedin:  'LinkedIn',  twitter: 'Twitter', youtube: 'YouTube',
   tiktok:    'TikTok',    whatsapp: 'WhatsApp', telegram: 'Telegram',
   discord:   'Discord',   email: 'Email',     link: 'Link',
+  document:  'Documento', blog: 'Blog',       folder: 'Materiais',
+  store:     'Loja',      clipboard: 'Checklist',
 };
 
 export function getIconComponent(name: IconName): ComponentType<IconProps> {

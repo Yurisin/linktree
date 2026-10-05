@@ -10,7 +10,8 @@ export const links: LinkItem[] = [
     url: 'https://instagram.com/alemaodev',
     icon: 'instagram',
     enabled: true,
-    featured: true,
+    featured: false,
+    social: true,
     position: 0,
   },
   {
@@ -19,7 +20,8 @@ export const links: LinkItem[] = [
     url: 'https://dev.alemaoflow.com',
     icon: 'globe',
     enabled: true,
-    featured: false,
+    featured: true,
+    social: false,
     position: 1,
   },
   {
@@ -29,6 +31,7 @@ export const links: LinkItem[] = [
     icon: 'github',
     enabled: true,
     featured: false,
+    social: true,
     position: 2,
   },
   {
@@ -38,6 +41,7 @@ export const links: LinkItem[] = [
     icon: 'github',
     enabled: true,
     featured: false,
+    social: true,
     position: 3,
   },
   {
@@ -45,8 +49,9 @@ export const links: LinkItem[] = [
     label: 'LinkedIn',
     url: 'https://linkedin.com/in/yuribotelho',
     icon: 'linkedin',
-    enabled: false,
+    enabled: true,
     featured: false,
+    social: true,
     position: 4,
   },
 ];

@@ -1,5 +1,4 @@
 // src/components/LinkCard.tsx
-import { ExternalLink } from 'lucide-react';
 import { LinkItem } from '@/types/linktree';
 import { getIconComponent } from '@/lib/icons';
 
@@ -11,38 +10,48 @@ interface Props {
 export function LinkCard({ link, index }: Props) {
   const Icon = getIconComponent(link.icon);
 
+  // Botão principal: preenchimento sólido cobalto (o "me chama" do DS).
+  // Demais: vidro com borda em degradê de marca (padrão ad-card).
+  const surface = link.featured
+    ? {
+        background: 'var(--action)',
+        border: '1px solid transparent',
+        color: 'var(--on-action)',
+      }
+    : {
+        background:
+          'linear-gradient(var(--glass), var(--glass)) padding-box, var(--gradient-border) border-box',
+        backgroundColor: 'var(--bg)',
+        border: '1px solid transparent',
+        color: 'var(--ink)',
+      };
+
   return (
     <a
       href={`/go/${link.id}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex items-center gap-4 w-full px-5 py-4 rounded-xl
-        bg-white/[0.06] backdrop-blur-sm border border-white/10
-        hover:border-white/20 hover:bg-white/[0.10]
-        hover:shadow-[0_0_20px_rgba(99,102,241,0.25)]
-        active:scale-[0.98]
+      className="group relative flex items-center justify-center w-full min-h-[60px] px-14 py-4
+        text-center
         transition-all duration-200 ease-out
-        hover:scale-[1.02]
+        hover:scale-[1.02] active:scale-[0.98]
+        hover:shadow-[0_0_24px_rgba(31,79,209,0.35)]
         cursor-pointer"
+      style={{ ...surface, borderRadius: 'var(--radius-md)' }}
       aria-label={`Abrir ${link.label} em nova aba`}
-      style={{ animationDelay: `${(index + 1) * 100}ms` }}
     >
-      <div
-        className={`flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center ${
-          link.featured
-            ? 'bg-gradient-to-br from-indigo-500 to-purple-600'
-            : 'bg-white/10'
+      <Icon
+        size={20}
+        className={`absolute left-5 flex-shrink-0 ${
+          link.featured ? 'text-[var(--on-action)]' : 'text-[var(--ink-soft)]'
         }`}
+      />
+      <span
+        className="text-sm font-semibold tracking-wide uppercase leading-snug"
+        style={{ animationDelay: `${(index + 1) * 100}ms` }}
       >
-        <Icon size={18} className="text-white" />
-      </div>
-      <span className="flex-1 text-sm font-medium text-slate-200 group-hover:text-white transition-colors">
         {link.label}
       </span>
-      <ExternalLink
-        size={14}
-        className="text-slate-500 group-hover:text-slate-300 transition-colors flex-shrink-0"
-      />
     </a>
   );
 }

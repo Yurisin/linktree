@@ -2,11 +2,13 @@
 export type IconName =
   | 'instagram' | 'globe'    | 'github'  | 'linkedin'
   | 'twitter'   | 'youtube'  | 'tiktok'  | 'whatsapp'
-  | 'telegram'  | 'discord'  | 'email'   | 'link';
+  | 'telegram'  | 'discord'  | 'email'   | 'link'
+  | 'document'  | 'blog'     | 'folder'  | 'store'   | 'clipboard';
 
 export const ALL_ICONS: IconName[] = [
   'instagram', 'github', 'linkedin', 'twitter', 'youtube', 'tiktok',
   'whatsapp', 'telegram', 'discord', 'email', 'globe', 'link',
+  'document', 'blog', 'folder', 'store', 'clipboard',
 ];
 
 export interface LinkItem {
@@ -16,6 +18,8 @@ export interface LinkItem {
   icon: IconName;
   enabled: boolean;
   featured: boolean;
+  /** true = ícone na fileira de redes sociais; false = card/botão grande. */
+  social: boolean;
   position: number;
 }
 
