@@ -6,13 +6,14 @@ export const PUT = auth(async (req, ctx) => {
   if (!req.auth) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { id } = await (ctx.params as Promise<{ id: string }>);
   const body = await req.json();
-  const { label, url, icon, enabled, featured } = body;
+  const { label, url, icon, enabled, featured, social } = body;
   const update: Record<string, unknown> = {};
   if (label !== undefined) update.label = label;
   if (url !== undefined) update.url = url;
   if (icon !== undefined) update.icon = icon;
   if (enabled !== undefined) update.enabled = enabled;
   if (featured !== undefined) update.featured = featured;
+  if (social !== undefined) update.social = social;
   const supabase = createDbClient();
   const { data, error } = await supabase
     .from('links').update(update).eq('id', id).select().single();

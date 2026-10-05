@@ -17,10 +17,12 @@ export function LinkEditor({ link, onSave, onClose }: Props) {
   const [icon, setIcon] = useState<IconName>(link?.icon ?? 'globe');
   const [enabled, setEnabled] = useState(link?.enabled ?? true);
   const [featured, setFeatured] = useState(link?.featured ?? false);
+  const [social, setSocial] = useState(link?.social ?? false);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    onSave({ label, url, icon, enabled, featured });
+    // Destaque só faz sentido em card; ícone social nunca é "featured".
+    onSave({ label, url, icon, enabled, featured: social ? false : featured, social });
   }
 
   return (
@@ -52,6 +54,38 @@ export function LinkEditor({ link, onSave, onClose }: Props) {
             />
           </div>
           <div>
+            <label className="text-xs text-slate-400 mb-2 block">Tipo</label>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setSocial(false)}
+                className={`px-3 py-2 rounded-lg border text-sm transition-colors ${
+                  !social
+                    ? 'border-indigo-500 bg-indigo-500/20 text-white'
+                    : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10'
+                }`}
+              >
+                Card / botão
+              </button>
+              <button
+                type="button"
+                onClick={() => setSocial(true)}
+                className={`px-3 py-2 rounded-lg border text-sm transition-colors ${
+                  social
+                    ? 'border-indigo-500 bg-indigo-500/20 text-white'
+                    : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10'
+                }`}
+              >
+                Ícone de rede social
+              </button>
+            </div>
+            <p className="text-[11px] text-slate-500 mt-1.5">
+              {social
+                ? 'Aparece como ícone pequeno na fileira do topo.'
+                : 'Aparece como botão grande na lista de links.'}
+            </p>
+          </div>
+          <div>
             <label className="text-xs text-slate-400 mb-2 block">Ícone</label>
             <IconPicker value={icon} onChange={setIcon} />
           </div>
@@ -60,10 +94,12 @@ export function LinkEditor({ link, onSave, onClose }: Props) {
               <input type="checkbox" checked={enabled} onChange={(e) => setEnabled(e.target.checked)} className="accent-indigo-500" />
               Ativado
             </label>
-            <label className="flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
-              <input type="checkbox" checked={featured} onChange={(e) => setFeatured(e.target.checked)} className="accent-indigo-500" />
-              Destaque
-            </label>
+            {!social && (
+              <label className="flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
+                <input type="checkbox" checked={featured} onChange={(e) => setFeatured(e.target.checked)} className="accent-indigo-500" />
+                Destaque (cobalto)
+              </label>
+            )}
           </div>
           <div className="flex gap-3 pt-2">
             <button type="button" onClick={onClose}

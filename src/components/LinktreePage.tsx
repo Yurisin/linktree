@@ -1,7 +1,7 @@
 import { ProfileHeader } from './ProfileHeader';
 import { SocialRow } from './SocialRow';
 import { LinkCard } from './LinkCard';
-import { ProfileData, LinkItem, ThemeConfig, IconName } from '@/types/linktree';
+import { ProfileData, LinkItem, ThemeConfig } from '@/types/linktree';
 
 interface Props {
   profile: ProfileData;
@@ -9,25 +9,12 @@ interface Props {
   theme: ThemeConfig;
 }
 
-// Ícones tratados como "social" (fileira compacta no topo). Os demais
-// (globe/link) viram botões grandes. Visual fixo do design system Alemão Dev.
-const SOCIAL_ICONS = new Set<IconName>([
-  'instagram',
-  'github',
-  'linkedin',
-  'twitter',
-  'youtube',
-  'tiktok',
-  'whatsapp',
-  'telegram',
-  'discord',
-  'email',
-]);
-
 export function LinktreePage({ profile, links }: Props) {
+  // `social` é configurado no admin: true = ícone na fileira do topo,
+  // false = card/botão grande. Visual fixo do design system Alemão Dev.
   const enabled = links.filter((l) => l.enabled);
-  const socials = enabled.filter((l) => SOCIAL_ICONS.has(l.icon));
-  const buttons = enabled.filter((l) => !SOCIAL_ICONS.has(l.icon));
+  const socials = enabled.filter((l) => l.social);
+  const buttons = enabled.filter((l) => !l.social);
 
   return (
     <main

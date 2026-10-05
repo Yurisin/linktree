@@ -38,9 +38,25 @@ function SortableLinkRow({ link, onEdit, onDelete, onToggle }: RowProps) {
         <Icon size={16} className="text-slate-300" />
       </div>
       <div className="flex-1 min-w-0">
-        <p className={`text-sm font-medium truncate ${link.enabled ? 'text-white' : 'text-slate-500'}`}>
-          {link.label}
-        </p>
+        <div className="flex items-center gap-2">
+          <p className={`text-sm font-medium truncate ${link.enabled ? 'text-white' : 'text-slate-500'}`}>
+            {link.label}
+          </p>
+          <span
+            className={`text-[10px] px-1.5 py-0.5 rounded-full border flex-shrink-0 ${
+              link.social
+                ? 'border-cyan-500/40 text-cyan-300 bg-cyan-500/10'
+                : 'border-white/15 text-slate-400 bg-white/5'
+            }`}
+          >
+            {link.social ? 'social' : 'card'}
+          </span>
+          {link.featured && !link.social && (
+            <span className="text-[10px] px-1.5 py-0.5 rounded-full border border-indigo-500/40 text-indigo-300 bg-indigo-500/10 flex-shrink-0">
+              destaque
+            </span>
+          )}
+        </div>
         <p className="text-xs text-slate-600 truncate">{link.url}</p>
       </div>
       <div className="flex items-center gap-1">
