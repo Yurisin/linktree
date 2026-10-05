@@ -64,13 +64,12 @@ export function LinktreePage({ profile, links }: Props) {
           ))}
         </div>
 
-        <footer className="mt-12 text-center">
-          <span className="text-xs font-bold" style={{ color: 'var(--ink-strong)' }}>
+        <footer className="mt-12 text-center text-xs" style={{ color: 'var(--ink-soft)' }}>
+          Desenvolvido por{' '}
+          <span className="font-bold" style={{ color: 'var(--ink-strong)' }}>
             Alemão
           </span>{' '}
-          <span className="text-xs" style={{ color: 'var(--ink-soft)' }}>
-            Dev
-          </span>
+          Dev
         </footer>
       </div>
     </main>
