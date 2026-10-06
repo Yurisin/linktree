@@ -1,6 +1,7 @@
 import { ProfileHeader } from './ProfileHeader';
 import { SocialRow } from './SocialRow';
 import { LinkCard } from './LinkCard';
+import { DarkVeilBackground } from './DarkVeilBackground';
 import { ProfileData, LinkItem, ThemeConfig } from '@/types/linktree';
 
 interface Props {
@@ -19,19 +20,13 @@ export function LinktreePage({ profile, links }: Props) {
   return (
     <main
       className="min-h-screen flex items-start justify-center px-4 pt-16 pb-12"
-      style={{ background: 'var(--bg)', color: 'var(--ink)' }}
+      style={{ color: 'var(--ink)' }}
     >
-      {/* Brilho radial cobalto (azul do carro) sobre o fundo escuro */}
-      <div
-        aria-hidden="true"
-        className="fixed inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(90% 55% at 50% 0%, rgba(31,79,209,0.45) 0%, rgba(31,79,209,0.14) 34%, transparent 68%)',
-        }}
-      />
+      {/* Fundo animado cobalto (shader WebGL "DarkVeil"). Fica atrás do
+          conteúdo; o <body> escuro é o fallback sem WebGL. */}
+      <DarkVeilBackground />
 
-      <div className="relative w-full max-w-sm animate-fade-in">
+      <div className="relative z-10 w-full max-w-sm animate-fade-in">
         <ProfileHeader profile={profile} />
 
         <SocialRow socials={socials} />
