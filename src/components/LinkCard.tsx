@@ -10,19 +10,17 @@ interface Props {
 export function LinkCard({ link, index }: Props) {
   const Icon = getIconComponent(link.icon);
 
-  // Botão principal: preenchimento sólido cobalto (o "me chama" do DS).
-  // Demais: vidro com borda em degradê de marca (padrão ad-card).
+  // Botões vazados (só contorno) sobre o fundo animado — estilo da referência.
+  // O principal ganha uma borda/texto um pouco mais fortes pra se destacar.
   const surface = link.featured
     ? {
-        background: 'var(--action)',
-        border: '1px solid transparent',
-        color: 'var(--on-action)',
+        background: 'transparent',
+        border: '1px solid rgba(255,255,255,0.28)',
+        color: 'var(--ink-strong)',
       }
     : {
-        background:
-          'linear-gradient(var(--glass), var(--glass)) padding-box, var(--gradient-border) border-box',
-        backgroundColor: 'var(--bg)',
-        border: '1px solid transparent',
+        background: 'transparent',
+        border: '1px solid rgba(255,255,255,0.14)',
         color: 'var(--ink)',
       };
 
@@ -35,6 +33,7 @@ export function LinkCard({ link, index }: Props) {
         text-center
         transition-all duration-200 ease-out
         hover:scale-[1.02] active:scale-[0.98]
+        hover:bg-white/[0.05]
         hover:shadow-[0_0_24px_rgba(31,79,209,0.35)]
         cursor-pointer"
       style={{ ...surface, borderRadius: 'var(--radius-md)' }}
@@ -43,7 +42,7 @@ export function LinkCard({ link, index }: Props) {
       <Icon
         size={20}
         className={`absolute left-5 flex-shrink-0 ${
-          link.featured ? 'text-[var(--on-action)]' : 'text-[var(--ink-soft)]'
+          link.featured ? 'text-[var(--ink-strong)]' : 'text-[var(--ink-soft)]'
         }`}
       />
       <span
