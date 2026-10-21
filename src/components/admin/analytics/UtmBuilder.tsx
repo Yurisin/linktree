@@ -21,22 +21,22 @@ export function UtmBuilder({ baseUrl }: { baseUrl: string }) {
   }
 
   return (
-    <section className="rounded-xl bg-white/[0.06] border border-white/10 p-4">
-      <h2 className="text-sm font-medium text-white mb-1">Gerador de link para o Instagram</h2>
-      <p className="text-xs text-slate-400 mb-3">Use estes links na bio/stories pra saber de onde vem o tráfego.</p>
-      <div className="flex flex-wrap gap-2 mb-3">
+    <section className="ad-card">
+      <h2 className="ad-label mb-2">Gerador de link para o Instagram</h2>
+      <p className="text-xs text-ink-soft mb-4">Use estes links na bio/stories pra saber de onde vem o tráfego.</p>
+      <div className="ad-seg mb-3">
         {MEDIUMS.map((m) => (
           <button key={m} onClick={() => setMedium(m)}
-            className={`px-3 py-1.5 rounded-lg text-sm ${medium === m ? 'bg-indigo-600 text-white' : 'bg-white/5 text-slate-400 hover:text-white'}`}>
+            className={medium === m ? 'on' : undefined}>
             {m}
           </button>
         ))}
       </div>
       <input value={campaign} onChange={(e) => setCampaign(e.target.value)} placeholder="campanha (opcional, ex: lancamento-abril)"
-        className="w-full mb-3 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white placeholder:text-slate-500" />
+        className="ad-field mb-3" />
       <div className="flex items-center gap-2">
-        <code className="flex-1 text-xs text-slate-300 bg-black/30 rounded-lg px-3 py-2 truncate">{url}</code>
-        <button onClick={copy} className="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm">
+        <code className="flex-1 min-w-0 text-xs text-brand-bright bg-bg-2 border border-line px-3 py-3 truncate">{url}</code>
+        <button onClick={copy} className="ad-btn ad-btn-primary !px-4 !py-3">
           {copied ? 'Copiado!' : 'Copiar'}
         </button>
       </div>

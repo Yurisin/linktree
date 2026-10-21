@@ -204,7 +204,7 @@ export function DarkVeilBackground() {
       ref={canvasRef}
       aria-hidden="true"
       className="fixed inset-0 w-full h-full pointer-events-none"
-      style={{ zIndex: 0, background: '#04040a' }}
+      style={{ zIndex: 0, background: 'var(--bg)' }}
     />
   );
 }

@@ -69,22 +69,22 @@ export default function LinksAdminPage() {
     if (!res.ok) setLinks(previous); // rollback on failure
   }
 
-  if (loading) return <p className="text-slate-400">Carregando...</p>;
+  if (loading) return <p className="text-ink-soft text-sm">Carregando...</p>;
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold text-white">Links</h1>
+        <h1 className="ad-page-title">Links</h1>
         <button
           onClick={() => setEditing('new')}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition-colors"
+          className="ad-btn ad-btn-primary"
         >
           <Plus size={16} /> Novo Link
         </button>
       </div>
       {error && <p className="text-red-400 text-sm">{error}</p>}
       {links.length === 0 ? (
-        <p className="text-slate-500 text-sm">Nenhum link ainda. Crie um!</p>
+        <p className="text-ink-faint text-sm">Nenhum link ainda. Crie um!</p>
       ) : (
         <LinkList
           links={links}

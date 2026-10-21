@@ -11,11 +11,10 @@ export function RangePicker({ current }: { current: number }) {
     router.push(`/admin/analytics?${p.toString()}`);
   }
   return (
-    <div className="flex gap-1 rounded-xl bg-white/[0.06] border border-white/10 p-1">
+    <div className="ad-seg">
       {ANALYTICS_RANGES.map((r) => (
         <button key={r} onClick={() => set(r)}
-          className={`px-3 py-1.5 rounded-lg text-sm transition-colors ${
-            current === r ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}>
+          className={current === r ? 'on' : undefined}>
           {r}d
         </button>
       ))}

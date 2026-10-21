@@ -4,52 +4,34 @@ import { getIconComponent } from '@/lib/icons';
 
 interface Props {
   link: LinkItem;
-  index: number;
 }
 
-export function LinkCard({ link, index }: Props) {
+export function LinkCard({ link }: Props) {
   const Icon = getIconComponent(link.icon);
 
-  // Botões vazados (só contorno) sobre o fundo animado — estilo da referência.
-  // O principal ganha uma borda/texto um pouco mais fortes pra se destacar.
-  const surface = link.featured
-    ? {
-        background: 'transparent',
-        border: '1px solid rgba(255,255,255,0.28)',
-        color: 'var(--ink-strong)',
-      }
-    : {
-        background: 'transparent',
-        border: '1px solid rgba(255,255,255,0.14)',
-        color: 'var(--ink)',
-      };
-
+  // Botão do DS (.ad-btn, chanfrado). O destaque usa o azul de ação (CTA);
+  // os demais são ghost (painel + borda line).
   return (
     <a
       href={`/go/${link.id}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex items-center justify-center w-full min-h-[60px] px-14 py-4
-        text-center
-        transition-all duration-200 ease-out
-        hover:scale-[1.02] active:scale-[0.98]
-        hover:bg-white/[0.05]
-        hover:shadow-[0_0_24px_rgba(31,79,209,0.35)]
-        cursor-pointer"
-      style={{ ...surface, borderRadius: 'var(--radius-md)' }}
+      className={`ad-btn ${link.featured ? 'ad-btn-primary' : 'ad-btn-ghost'}
+        group w-full min-h-[58px] justify-center px-12 text-center
+        transition-[filter,transform] duration-200 ease-out
+        hover:brightness-125 active:scale-[0.98]`}
       aria-label={`Abrir ${link.label} em nova aba`}
     >
       <Icon
-        size={20}
-        className={`absolute left-5 flex-shrink-0 ${
-          link.featured ? 'text-[var(--ink-strong)]' : 'text-[var(--ink-soft)]'
-        }`}
+        size={18}
+        className={`absolute left-5 flex-shrink-0 ${link.featured ? 'text-on-action' : 'text-ink-soft'}`}
       />
+      <span className="leading-snug">{link.label}</span>
       <span
-        className="text-sm font-semibold tracking-wide uppercase leading-snug"
-        style={{ animationDelay: `${(index + 1) * 100}ms` }}
+        aria-hidden="true"
+        className="absolute right-5 transition-transform duration-200 group-hover:translate-x-1"
       >
-        {link.label}
+        →
       </span>
     </a>
   );
