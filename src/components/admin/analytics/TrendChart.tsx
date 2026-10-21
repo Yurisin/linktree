@@ -12,15 +12,15 @@ export function TrendChart({ data }: { data: TimeseriesPoint[] }) {
     data.map((d, i) => `${i === 0 ? 'M' : 'L'}${x(i).toFixed(1)},${y(d[key]).toFixed(1)}`).join(' ');
 
   return (
-    <section className="rounded-xl bg-white/[0.06] border border-white/10 p-4">
-      <h2 className="text-sm font-medium text-white mb-3">Visitas e cliques por dia</h2>
+    <section className="ad-card">
+      <h2 className="ad-label mb-4">Visitas e cliques por dia</h2>
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-40" preserveAspectRatio="none">
-        <path d={path('pageviews')} fill="none" stroke="#6366f1" strokeWidth="2" />
-        <path d={path('clicks')} fill="none" stroke="#22d3ee" strokeWidth="2" />
+        <path d={path('pageviews')} fill="none" stroke="var(--brand)" strokeWidth="2" />
+        <path d={path('clicks')} fill="none" stroke="var(--signal)" strokeWidth="2" />
       </svg>
-      <div className="flex gap-4 text-xs mt-2">
-        <span className="text-indigo-400">● Visitas</span>
-        <span className="text-cyan-300">● Cliques</span>
+      <div className="flex gap-4 text-[11px] uppercase tracking-[1px] mt-2">
+        <span className="text-brand-bright">● Visitas</span>
+        <span className="text-signal">● Cliques</span>
       </div>
     </section>
   );
@@ -28,9 +28,9 @@ export function TrendChart({ data }: { data: TimeseriesPoint[] }) {
 
 export function Empty({ title }: { title: string }) {
   return (
-    <section className="rounded-xl bg-white/[0.06] border border-white/10 p-4">
-      <h2 className="text-sm font-medium text-white mb-3">{title}</h2>
-      <p className="text-slate-500 text-sm">Sem dados no período.</p>
+    <section className="ad-card">
+      <h2 className="ad-label mb-4">{title}</h2>
+      <p className="text-ink-faint text-sm">Sem dados no período.</p>
     </section>
   );
 }

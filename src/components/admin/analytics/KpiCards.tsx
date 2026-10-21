@@ -2,9 +2,9 @@ import type { AnalyticsSummary } from '@/types/analytics';
 
 function Card({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl bg-white/[0.06] border border-white/10 p-4">
-      <p className="text-xs text-slate-400">{label}</p>
-      <p className="mt-1 text-2xl font-semibold text-white">{value}</p>
+    <div className="ad-card">
+      <p className="text-[11px] font-medium uppercase tracking-[1.2px] text-ink-faint">{label}</p>
+      <p className="mt-2 text-[28px] leading-8 font-bold tracking-[-0.5px] text-ink-strong">{value}</p>
     </div>
   );
 }

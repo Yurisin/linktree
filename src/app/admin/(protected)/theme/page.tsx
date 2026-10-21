@@ -31,13 +31,13 @@ export default function ThemeAdminPage() {
     setTimeout(() => setSuccess(false), 3000);
   }
 
-  if (!profile && !error) return <p className="text-slate-400">Carregando...</p>;
+  if (!profile && !error) return <p className="text-ink-soft text-sm">Carregando...</p>;
 
   return (
     <div className="space-y-6">
-      <h1 className="text-xl font-semibold text-white">Tema</h1>
+      <h1 className="ad-page-title">Tema</h1>
       {error && <p className="text-red-400 text-sm">{error}</p>}
-      {success && <p className="text-green-400 text-sm">Tema salvo!</p>}
+      {success && <p className="text-signal text-sm">Tema salvo!</p>}
       {profile && <ThemeEditor theme={profile.theme} onSave={handleSave} />}
     </div>
   );

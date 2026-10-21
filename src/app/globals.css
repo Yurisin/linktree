@@ -1,53 +1,95 @@
 @import "tailwindcss";
+@import "../styles/tokens.css";
+/* em layer: as utilities do Tailwind (padding, display…) podem ajustar as classes ad- */
+@import "../styles/ad.css" layer(components);
 
-/* ---------------------------------------------------------------------------
-   Tokens do design system "Alemão Dev" (tokens/colors.css, scales.css).
-   Fonte da verdade: .orca/drops/Alemão Dev.zip
---------------------------------------------------------------------------- */
-:root {
-  /* cores */
-  --bg: #05050a;
-  --glass: #ffffff08;
-  --glass-border: #ffffff12;
-  --ink: #f1f5f9;
-  --ink-strong: #ffffff;
-  --ink-soft: #ffffff99;
-  --ink-faint: #ffffff66;
-  --muted: #64748b;
-  --brand-from: #6366f1;
-  --brand-to: #8b5cf6;
-  --accent-cyan: #22d3ee;
-  --eyebrow: #7c86ff;
-  --action: #1f4fd1; /* azul cobalto do carro — SÓ em botão/CTA, texto branco */
-  --on-action: #ffffff;
-
-  /* raio */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-pill: 9999px;
-
-  /* degradês + brilho */
-  --gradient-text: linear-gradient(135deg, #6366f1, #8b5cf6, #22d3ee);
-  --gradient-border: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.4));
-  --glow: 0 0 60px 0 rgba(99, 102, 241, 0.15), 0 0 120px 0 rgba(139, 92, 246, 0.08);
-
-  /* tipografia */
-  --font-sans: var(--font-geist), system-ui, -apple-system, sans-serif;
+/* Tokens do design system (src/styles/tokens.css) como utilitários do Tailwind: bg-panel, text-ink-soft, border-line… */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-panel: var(--panel);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-strong: var(--ink-strong);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-brand: var(--brand);
+  --color-brand-bright: var(--brand-bright);
+  --color-brand-deep: var(--brand-deep);
+  --color-action: var(--action);
+  --color-on-action: var(--on-action);
+  --color-signal: var(--signal);
+  --color-on-signal: var(--on-signal);
+  --font-sans: var(--font-geist), Geist, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
 }
 
 body {
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: var(--grid-bg);
+  background-size: 32px 32px;
   color: var(--ink);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
+  font-family: var(--font-mono);
 }
 
-/* Texto em degradê de marca (só em 24px+, conforme o DS) */
-.grad-text {
-  background: var(--gradient-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+::selection {
+  background: var(--brand-deep);
+  color: var(--ink-strong);
+}
+
+/* ---------- Peças locais do linktree, montadas com os tokens do DS ----------
+   O DS não tem campo de formulário nem seletor segmentado; estes seguem as regras
+   dele (mono, cantos retos, borda line, foco em signal). */
+
+@layer components {
+  .ad-field {
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font: 400 14px/20px var(--font-mono);
+    padding: 10px 12px;
+    border-radius: 0;
+  }
+  .ad-field::placeholder { color: var(--ink-faint); }
+  .ad-field:focus { outline: none; border-color: var(--brand); }
+
+  .ad-field-label {
+    display: block;
+    margin-bottom: 6px;
+    font: 500 11px/16px var(--font-mono);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* seletor segmentado (7d/30d/90d, bio/story, card/social) */
+  .ad-seg { display: inline-flex; border: 1px solid var(--line); background: var(--bg-2); }
+  .ad-seg > button {
+    font: 700 11px/16px var(--font-mono);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding: 8px 14px;
+    border-left: 1px solid var(--line);
+    cursor: pointer;
+  }
+  .ad-seg > button:first-child { border-left: 0; }
+  .ad-seg > button:hover { color: var(--ink); }
+  .ad-seg > button.on { background: var(--action); color: var(--on-action); }
+  .ad-seg > button:focus-visible { outline: 2px solid var(--signal); outline-offset: -2px; }
+
+  /* título de página do admin (Geist 900, estilo section reduzido) */
+  .ad-page-title {
+    font: 900 28px/32px var(--font-sans);
+    letter-spacing: -0.75px;
+    color: var(--ink-strong);
+    margin: 0;
+  }
+
+  .ad-btn:disabled { opacity: .5; cursor: default; }
 }
 
 @layer utilities {

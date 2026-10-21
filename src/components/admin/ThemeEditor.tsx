@@ -38,19 +38,19 @@ export function ThemeEditor({ theme, onSave }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-md">
+    <form onSubmit={handleSubmit} className="ad-card space-y-6 max-w-md">
       {error && <p className="text-red-400 text-sm">{error}</p>}
       {/* Live preview */}
       <div
-        className="rounded-xl p-4 border border-white/10"
+        className="p-4 border border-line"
         style={{ backgroundColor: values.bgColor }}
       >
         <div
-          className="h-2 rounded-full mb-3"
+          className="h-1 mb-3"
           style={{ background: `linear-gradient(to right, ${values.accentColor}, ${values.accentColor}88)` }}
         />
         <div
-          className="rounded-lg p-3 text-sm"
+          className="p-3 text-sm"
           style={{ backgroundColor: values.cardColor, color: values.textColor, opacity: 0.9 }}
         >
           Preview do card
@@ -60,23 +60,23 @@ export function ThemeEditor({ theme, onSave }: Props) {
         <div key={key} className="flex items-center gap-4">
           <input
             type="color"
-            value={values[key].startsWith('#') ? values[key] : '#6366f1'}
+            value={values[key].startsWith('#') ? values[key] : '#3278ff'}
             onChange={(e) => update(key, e.target.value)}
-            className="w-10 h-10 rounded-lg border border-white/10 bg-transparent cursor-pointer"
+            className="w-10 h-10 border border-line bg-transparent cursor-pointer"
           />
           <div className="flex-1">
-            <label className="text-xs text-slate-400 block mb-1">{label}</label>
+            <label className="ad-field-label">{label}</label>
             <input
               value={values[key]}
               onChange={(e) => update(key, e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-white text-sm font-mono focus:outline-none focus:border-indigo-500"
+              className="ad-field"
             />
           </div>
         </div>
       ))}
       <button type="submit" disabled={saving}
-        className="px-6 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition-colors disabled:opacity-50">
-        {saving ? 'Salvando...' : 'Salvar Tema'}
+        className="ad-btn ad-btn-primary">
+        {saving ? 'Salvando...' : 'Salvar tema'}
       </button>
     </form>
   );

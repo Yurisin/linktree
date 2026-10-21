@@ -18,10 +18,10 @@ export function IconPicker({ value, onChange }: Props) {
             key={name}
             type="button"
             onClick={() => onChange(name)}
-            className={`p-2 rounded-lg border flex flex-col items-center gap-1 text-xs transition-colors
+            className={`p-2 border flex flex-col items-center gap-1 text-xs transition-colors
               ${value === name
-                ? 'border-indigo-500 bg-indigo-500/20 text-white'
-                : 'border-white/10 bg-white/5 hover:bg-white/10 text-slate-400'}`}
+                ? 'border-brand bg-brand-deep/50 text-ink-strong'
+                : 'border-line bg-panel hover:border-line-strong text-ink-faint hover:text-ink'}`}
             title={ICON_LABELS[name]}
           >
             <Icon size={18} />

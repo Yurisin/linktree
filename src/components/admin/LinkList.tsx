@@ -27,46 +27,40 @@ function SortableLinkRow({ link, onEdit, onDelete, onToggle }: RowProps) {
     <div
       ref={setNodeRef}
       style={{ transform: CSS.Transform.toString(transform), transition }}
-      className={`flex items-center gap-3 p-3 rounded-xl border ${
-        isDragging ? 'border-indigo-500 bg-indigo-500/10 z-10' : 'border-white/10 bg-white/5'
+      className={`flex items-center gap-3 p-3 border ${
+        isDragging ? 'border-brand bg-brand-deep/40 z-10' : 'border-line bg-panel'
       } transition-colors`}
     >
-      <button {...attributes} {...listeners} className="text-slate-600 hover:text-slate-400 cursor-grab active:cursor-grabbing">
+      <button {...attributes} {...listeners} className="text-ink-faint hover:text-ink-soft cursor-grab active:cursor-grabbing" aria-label="Arrastar">
         <GripVertical size={18} />
       </button>
-      <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
-        <Icon size={16} className="text-slate-300" />
+      <div className="w-8 h-8 bg-bg-2 border border-line flex items-center justify-center flex-shrink-0">
+        <Icon size={16} className="text-ink-soft" />
       </div>
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2">
-          <p className={`text-sm font-medium truncate ${link.enabled ? 'text-white' : 'text-slate-500'}`}>
-            {link.label}
-          </p>
-          <span
-            className={`text-[10px] px-1.5 py-0.5 rounded-full border flex-shrink-0 ${
-              link.social
-                ? 'border-cyan-500/40 text-cyan-300 bg-cyan-500/10'
-                : 'border-white/15 text-slate-400 bg-white/5'
-            }`}
-          >
+        <p className={`text-sm font-bold truncate ${link.enabled ? 'text-ink-strong' : 'text-ink-faint line-through'}`}>
+          {link.label}
+        </p>
+        <div className="flex items-center gap-2 mt-1">
+          <span className="ad-tag !text-[10px] !leading-[14px] !px-1.5 uppercase flex-shrink-0">
             {link.social ? 'social' : 'card'}
           </span>
           {link.featured && !link.social && (
-            <span className="text-[10px] px-1.5 py-0.5 rounded-full border border-indigo-500/40 text-indigo-300 bg-indigo-500/10 flex-shrink-0">
+            <span className="ad-tag !text-[10px] !leading-[14px] !px-1.5 uppercase flex-shrink-0 !text-brand-bright !border-line-strong">
               destaque
             </span>
           )}
+          <p className="text-xs text-ink-faint truncate">{link.url}</p>
         </div>
-        <p className="text-xs text-slate-600 truncate">{link.url}</p>
       </div>
       <div className="flex items-center gap-1">
-        <button onClick={onToggle} className="p-1.5 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white" title={link.enabled ? 'Desativar' : 'Ativar'}>
+        <button onClick={onToggle} className="p-1.5 hover:bg-panel text-ink-faint hover:text-ink" title={link.enabled ? 'Desativar' : 'Ativar'}>
           {link.enabled ? <Eye size={16} /> : <EyeOff size={16} />}
         </button>
-        <button onClick={onEdit} className="p-1.5 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white" title="Editar">
+        <button onClick={onEdit} className="p-1.5 hover:bg-panel text-ink-faint hover:text-ink" title="Editar">
           <Pencil size={16} />
         </button>
-        <button onClick={onDelete} className="p-1.5 rounded-lg hover:bg-white/10 text-slate-400 hover:text-red-400" title="Excluir">
+        <button onClick={onDelete} className="p-1.5 hover:bg-panel text-ink-faint hover:text-red-400" title="Excluir">
           <Trash2 size={16} />
         </button>
       </div>

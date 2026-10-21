@@ -31,13 +31,13 @@ export default function ProfileAdminPage() {
     setTimeout(() => setSuccess(false), 3000);
   }
 
-  if (!profile && !error) return <p className="text-slate-400">Carregando...</p>;
+  if (!profile && !error) return <p className="text-ink-soft text-sm">Carregando...</p>;
 
   return (
     <div className="space-y-6">
-      <h1 className="text-xl font-semibold text-white">Perfil</h1>
+      <h1 className="ad-page-title">Perfil</h1>
       {error && <p className="text-red-400 text-sm">{error}</p>}
-      {success && <p className="text-green-400 text-sm">Perfil salvo com sucesso!</p>}
+      {success && <p className="text-signal text-sm">Perfil salvo com sucesso!</p>}
       {profile && <ProfileEditor profile={profile} onSave={handleSave} />}
     </div>
   );
