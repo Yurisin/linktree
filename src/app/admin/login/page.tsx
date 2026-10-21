@@ -1,7 +1,6 @@
 // src/app/admin/login/page.tsx
-'use client';
-import { signIn } from 'next-auth/react';
-import { FaGoogle } from 'react-icons/fa';
+import { devLoginEnabled } from '@/auth';
+import { LoginButtons } from '@/components/admin/LoginButtons';
 
 export default function LoginPage() {
   return (
@@ -16,13 +15,7 @@ export default function LoginPage() {
           <h1 className="text-2xl font-semibold text-white">Admin</h1>
           <p className="text-sm text-slate-400">Acesso restrito ao proprietário</p>
         </div>
-        <button
-          onClick={() => signIn('google', { callbackUrl: '/admin/links' })}
-          className="flex items-center gap-3 px-6 py-3 rounded-xl bg-white text-gray-900 font-medium hover:bg-gray-100 transition-colors text-sm"
-        >
-          <FaGoogle size={18} />
-          Entrar com Google
-        </button>
+        <LoginButtons devLogin={devLoginEnabled} />
       </div>
     </main>
   );
