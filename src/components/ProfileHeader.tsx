@@ -16,53 +16,25 @@ function getInitials(name: string): string {
 }
 
 export function ProfileHeader({ profile }: Props) {
-  const initials = getInitials(profile.name);
-
   return (
-    <div className="flex flex-col items-center gap-4 mb-5">
-      {/* Avatar com anel em degradê de marca (padrão ad-hl-ring) */}
-      <div
-        className="relative rounded-full p-[3px]"
-        style={{ background: 'var(--gradient-text)', boxShadow: 'var(--glow)' }}
-      >
-        <div
-          className="relative w-24 h-24 rounded-full overflow-hidden"
-          style={{ background: 'var(--bg)', border: '2px solid var(--bg)' }}
-        >
-          {profile.avatar_url ? (
-            <Image
-              src={profile.avatar_url}
-              alt={profile.name}
-              fill
-              className="object-cover rounded-full"
-            />
-          ) : (
-            <div
-              className="absolute inset-0 flex items-center justify-center rounded-full"
-              style={{ background: 'var(--glass)' }}
-            >
-              <span className="text-2xl font-black" style={{ color: 'var(--ink-strong)' }}>
-                {initials}
-              </span>
-            </div>
-          )}
-        </div>
-      </div>
+    <div className="flex flex-col items-center gap-3 mb-7 text-center">
+      {/* Avatar redondo (.ad-avatar-lg): único elemento circular junto do ponto de status */}
+      <span className="ad-avatar ad-avatar-lg" style={{ boxShadow: 'var(--glow)' }}>
+        {profile.avatar_url ? (
+          <Image src={profile.avatar_url} alt={profile.name} width={96} height={96} priority />
+        ) : (
+          getInitials(profile.name)
+        )}
+      </span>
 
-      <h1
-        className="text-2xl font-black tracking-tight text-center"
-        style={{ color: 'var(--ink-strong)' }}
-      >
+      <p className="ad-label ad-label--status mt-2">Online</p>
+
+      <h1 className="font-sans font-black text-[30px] leading-[34px] tracking-[-0.75px] text-ink-strong">
         {profile.name}
       </h1>
 
       {profile.bio && (
-        <p
-          className="text-sm text-center max-w-xs leading-relaxed"
-          style={{ color: 'var(--ink-soft)' }}
-        >
-          {profile.bio}
-        </p>
+        <p className="text-sm leading-[22px] max-w-xs text-ink-soft">{profile.bio}</p>
       )}
     </div>
   );

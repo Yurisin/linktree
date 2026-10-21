@@ -10,7 +10,7 @@ export function SocialRow({ socials }: Props) {
   if (socials.length === 0) return null;
 
   return (
-    <div className="flex items-center justify-center flex-wrap gap-6 mb-9">
+    <div className="flex items-center justify-center flex-wrap gap-2.5 mb-8">
       {socials.map((social) => {
         const Icon = getIconComponent(social.icon);
         return (
@@ -20,13 +20,12 @@ export function SocialRow({ socials }: Props) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={social.label}
-            className="group transition-transform duration-200 ease-out hover:scale-110"
-            style={{ color: 'var(--ink-soft)' }}
+            title={social.label}
+            className="ad-cut-sm grid place-items-center w-11 h-11 bg-panel border border-line text-ink-soft
+              transition-colors duration-200 hover:text-brand-bright hover:border-line-strong
+              focus-visible:outline-2 focus-visible:outline-signal"
           >
-            <Icon
-              size={22}
-              className="transition-colors duration-200 group-hover:text-[var(--accent-cyan)]"
-            />
+            <Icon size={19} />
           </a>
         );
       })}

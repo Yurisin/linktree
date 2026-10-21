@@ -12,18 +12,15 @@ interface Props {
 
 export function LinktreePage({ profile, links }: Props) {
   // `social` é configurado no admin: true = ícone na fileira do topo,
-  // false = card/botão grande. Visual fixo do design system Alemão Dev.
+  // false = card/botão grande. Visual fixo do design system Alemão Dev v2.
   const enabled = links.filter((l) => l.enabled);
   const socials = enabled.filter((l) => l.social);
   const buttons = enabled.filter((l) => !l.social);
 
   return (
-    <main
-      className="min-h-screen flex items-start justify-center px-4 pt-16 pb-12"
-      style={{ color: 'var(--ink)' }}
-    >
+    <main className="relative min-h-screen flex items-start justify-center px-4 pt-14 pb-10">
       {/* Fundo animado cobalto (shader WebGL "DarkVeil"). Fica atrás do
-          conteúdo; o <body> escuro é o fallback sem WebGL. */}
+          conteúdo; o <body> com grid do DS é o fallback sem WebGL. */}
       <DarkVeilBackground />
 
       <div className="relative z-10 w-full max-w-sm animate-fade-in">
@@ -41,17 +38,18 @@ export function LinktreePage({ profile, links }: Props) {
                 animationFillMode: 'both',
               }}
             >
-              <LinkCard link={link} index={index} />
+              <LinkCard link={link} />
             </div>
           ))}
         </div>
 
-        <footer className="mt-12 text-center text-xs" style={{ color: 'var(--ink-soft)' }}>
-          Desenvolvido por{' '}
-          <span className="font-bold" style={{ color: 'var(--ink-strong)' }}>
-            Alemão
-          </span>{' '}
-          Dev
+        <footer className="mt-14 flex flex-col items-center gap-2">
+          <span className="text-[11px] uppercase tracking-[1.2px] text-ink-faint">Desenvolvido por</span>
+          <span className="ad-wordmark">
+            <span>
+              Alemão <span className="ad-dev">Dev</span>
+            </span>
+          </span>
         </footer>
       </div>
     </main>
