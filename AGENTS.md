@@ -26,4 +26,4 @@ Desenvolvimento local:
 - Preview pela rede (Tailscale): ponha o host em `DEV_ORIGINS` no `.env.local`.
 
 Nunca: push ou merge na `master` (é produção em links.alemaodev.com), commitar `.env*` (exceto `.env.example`), apontar para o Supabase da nuvem (`ledukavvfokxzixqexcw`).
-Design system: `design-system/` (ver `design-system/ORIGEM.md`).
+Design system: `design-system/` (ver `design-system/ORIGEM.md`). Depois de exportar de novo, rode `npm run ds:sync`.

@@ -67,11 +67,11 @@ export function AvatarCropModal({ imageSrc, onConfirm, onCancel }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onCancel} />
-      <div className="relative z-10 w-full max-w-md bg-[#111] border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
-          <h2 className="text-sm font-semibold text-white">Enquadrar foto</h2>
-          <button onClick={onCancel} className="text-slate-400 hover:text-white transition-colors">
+      <div className="absolute inset-0 bg-bg/80 backdrop-blur-sm" onClick={onCancel} />
+      <div className="ad-cut-md relative z-10 w-full max-w-md bg-bg-2 border border-line overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-line">
+          <h2 className="ad-label">Enquadrar foto</h2>
+          <button onClick={onCancel} className="text-ink-faint hover:text-ink transition-colors">
             <X size={18} />
           </button>
         </div>
@@ -89,15 +89,15 @@ export function AvatarCropModal({ imageSrc, onConfirm, onCancel }: Props) {
             onZoomChange={setZoom}
             onCropComplete={onCropComplete}
             style={{
-              containerStyle: { background: '#000' },
-              cropAreaStyle: { border: '2px solid #6366f1' },
+              containerStyle: { background: 'var(--bg)' },
+              cropAreaStyle: { border: '2px solid var(--brand)' },
             }}
           />
         </div>
 
         {/* Zoom slider */}
-        <div className="flex items-center gap-3 px-5 py-4 border-t border-white/10">
-          <ZoomOut size={16} className="text-slate-400 flex-shrink-0" />
+        <div className="flex items-center gap-3 px-5 py-4 border-t border-line">
+          <ZoomOut size={16} className="text-ink-faint flex-shrink-0" />
           <input
             type="range"
             min={1}
@@ -105,9 +105,9 @@ export function AvatarCropModal({ imageSrc, onConfirm, onCancel }: Props) {
             step={0.01}
             value={zoom}
             onChange={(e) => setZoom(Number(e.target.value))}
-            className="flex-1 accent-indigo-500 h-1 cursor-pointer"
+            className="flex-1 accent-[var(--action)] h-1 cursor-pointer"
           />
-          <ZoomIn size={16} className="text-slate-400 flex-shrink-0" />
+          <ZoomIn size={16} className="text-ink-faint flex-shrink-0" />
         </div>
 
         {/* Actions */}
@@ -115,7 +115,7 @@ export function AvatarCropModal({ imageSrc, onConfirm, onCancel }: Props) {
           <button
             type="button"
             onClick={onCancel}
-            className="flex-1 py-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-slate-300 text-sm transition-colors"
+            className="ad-btn ad-btn-ghost flex-1 justify-center"
           >
             Cancelar
           </button>
@@ -123,7 +123,7 @@ export function AvatarCropModal({ imageSrc, onConfirm, onCancel }: Props) {
             type="button"
             onClick={handleConfirm}
             disabled={processing}
-            className="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition-colors disabled:opacity-50"
+            className="ad-btn ad-btn-primary flex-1 justify-center"
           >
             <Check size={16} />
             {processing ? 'Processando...' : 'Confirmar'}

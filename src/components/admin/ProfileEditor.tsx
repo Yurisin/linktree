@@ -80,15 +80,15 @@ export function ProfileEditor({ profile, onSave }: Props) {
           onCancel={handleCropCancel}
         />
       )}
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-md">
+    <form onSubmit={handleSubmit} className="ad-card space-y-6 max-w-md">
       {error && <p className="text-red-400 text-sm">{error}</p>}
       <div className="flex items-center gap-6">
-        <div className="relative w-20 h-20 rounded-full overflow-hidden bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+        <div className="relative w-20 h-20 rounded-full overflow-hidden bg-bg-2 border border-line-strong flex items-center justify-center flex-shrink-0">
           {displayImage && (
             <Image src={displayImage} alt="Avatar" fill className="object-cover" unoptimized={!!preview} />
           )}
           {!displayImage && (
-            <span className="text-white text-xl font-semibold">
+            <span className="text-ink-soft text-xl font-bold">
               {name.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase()}
             </span>
           )}
@@ -98,7 +98,7 @@ export function ProfileEditor({ profile, onSave }: Props) {
             type="button"
             onClick={() => fileRef.current?.click()}
             disabled={uploading}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-slate-300 text-sm transition-colors disabled:opacity-50"
+            className="ad-btn ad-btn-ghost"
           >
             <Upload size={16} />
             {uploading ? 'Enviando...' : 'Trocar foto'}
@@ -107,19 +107,19 @@ export function ProfileEditor({ profile, onSave }: Props) {
         </div>
       </div>
       <div>
-        <label className="text-xs text-slate-400 mb-1 block">Nome</label>
+        <label className="ad-field-label">Nome</label>
         <input value={name} onChange={(e) => setName(e.target.value)} required
-          className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500" />
+          className="ad-field" />
       </div>
       <div>
-        <label className="text-xs text-slate-400 mb-1 block">Bio</label>
+        <label className="ad-field-label">Bio</label>
         <textarea value={bio} onChange={(e) => setBio(e.target.value)}
-          className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500 resize-none"
+          className="ad-field resize-none"
           rows={3} />
       </div>
       <button type="submit" disabled={saving || uploading}
-        className="px-6 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition-colors disabled:opacity-50">
-        {saving ? 'Salvando...' : 'Salvar Perfil'}
+        className="ad-btn ad-btn-primary">
+        {saving ? 'Salvando...' : 'Salvar perfil'}
       </button>
     </form>
     </>

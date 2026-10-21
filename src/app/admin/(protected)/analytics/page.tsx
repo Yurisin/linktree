@@ -25,8 +25,8 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold text-white">Analytics</h1>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="ad-page-title">Analytics</h1>
         <RangePicker current={range} />
       </div>
       <KpiCards summary={data.summary} />
