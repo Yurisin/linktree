@@ -21,7 +21,7 @@ export function ProfileHeader({ profile }: Props) {
       {/* Avatar redondo (.ad-avatar-lg): único elemento circular junto do ponto de status */}
       <span className="ad-avatar ad-avatar-lg" style={{ boxShadow: 'var(--glow)' }}>
         {profile.avatar_url ? (
-          <Image src={profile.avatar_url} alt={profile.name} width={96} height={96} priority />
+          <Image src={profile.avatar_url} alt={profile.name} width={96} height={96} preload />
         ) : (
           getInitials(profile.name)
         )}
